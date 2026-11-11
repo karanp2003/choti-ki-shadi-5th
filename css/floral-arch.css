@@ -1,0 +1,207 @@
+@import url("floral-arch-theme.css");
+
+html {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#fa-root {
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.hero-scroll-stage,
+.floral-hero-viewport,
+.our-story-section,
+.our-story-card,
+.our-story-body {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+}
+
+.our-story-arch-frame {
+  max-width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.our-story-swiper-track {
+  touch-action: pan-y;
+}
+
+.our-story-slide,
+.our-story-photo {
+  max-width: 100%;
+}
+
+body.hero-locked {
+  overflow: hidden;
+  height: 100svh;
+}
+
+/* Tap to open on floral hero (no envelope gate) */
+#fa-root .tap-to-open-overlay:not(.is-hidden) {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#fa-root .tap-to-open-overlay {
+  position: absolute !important;
+  inset: 0;
+  z-index: 35;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tap-to-open-overlay.is-hidden {
+  display: none !important;
+  pointer-events: none;
+}
+
+#fa-root .tap-to-open-overlay .tap-to-open-label {
+  position: absolute;
+  bottom: max(4.5rem, calc(env(safe-area-inset-bottom, 0px) + 3.25rem));
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* After scroll: sticky hero stays but chrome must not float over Our Story */
+.hero-scroll-stage.hero-past-fold .floral-scroll-cue,
+.hero-scroll-stage.hero-past-fold #tap-to-open {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+.hero-scroll-stage.hero-past-fold .floral-hero-viewport {
+  position: relative;
+  top: auto;
+}
+
+/* Date row: month, day numeral, year on one optical center line */
+.arch-date-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: clamp(0.55rem, 2.5vw, 0.85rem) !important;
+}
+
+.arch-date-month,
+.arch-date-year {
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+}
+
+.arch-date-day {
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 0.15rem !important;
+  display: block;
+  position: relative;
+  top: -0.16em;
+}
+
+/* Scroll cue: centered, not clipped on mobile */
+.floral-stage-container {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.floral-arch-overlay.overlay-visible {
+  inset: 30% 12% 28% !important;
+}
+
+@keyframes scrollCueCenterIn {
+  0% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, 0);
+  }
+}
+
+.floral-scroll-cue:not(.hidden) {
+  left: 50% !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: translate(-50%, 0) !important;
+  bottom: max(1.35rem, calc(env(safe-area-inset-bottom, 0px) + 0.9rem)) !important;
+  max-width: calc(100% - 2rem);
+  width: max-content;
+  z-index: 26;
+  animation: scrollCueCenterIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.1s both !important;
+}
+
+.floral-scroll-cue:not(.hidden):hover {
+  transform: translate(-50%, -2px) !important;
+}
+
+.floral-scroll-cue:not(.hidden):active {
+  transform: translate(-50%, 0) !important;
+}
+
+.story-action-buttons--stack {
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.story-action-buttons--stack .story-action-btn {
+  flex: none !important;
+  width: 100%;
+  max-width: 260px;
+}
+
+.rsvp-section {
+  display: none !important;
+}
+
+.hidden-until-unlock {
+  display: none !important;
+}
+
+.floral-scroll-cue.hidden {
+  display: none !important;
+}
+
+#entry-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
