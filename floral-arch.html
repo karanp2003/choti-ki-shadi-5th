@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <title>Save The Date — Antima & Saksham</title>
+    <meta name="description" content="Celebrate our love story and save our wedding date." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Marck+Script&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&family=Satisfy&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="floral-arch.css" />
+  </head>
+  <body>
+    <main id="fa-root" style="min-height: 100vh; width: 100%; position: relative">
+      <!-- Floral arch hero -->
+      <div class="hero-scroll-stage stage-locked" id="hero-stage">
+        <section id="hero" class="floral-hero-viewport">
+          <div class="floral-ambient-bg" aria-hidden="true"></div>
+          <div class="floral-stage-container">
+            <video
+              id="floral-arch-video"
+              class="floral-stage-video"
+              playsinline
+              muted
+              preload="auto"
+            ></video>
+            <button
+              type="button"
+              id="tap-to-open"
+              class="tap-to-open-overlay"
+              aria-label="Tap to open invitation"
+            >
+              <span class="tap-to-open-label" id="tap-to-open-label">TAP TO OPEN</span>
+            </button>
+            <div class="floral-arch-overlay overlay-hidden" id="arch-overlay">
+              <div class="arch-top-badge">
+                <h3 class="arch-badge-title" id="arch-msg1"></h3>
+                <span class="arch-badge-script" id="arch-msg2"></span>
+              </div>
+              <div class="arch-names-center">
+                <h1 class="arch-couple-name arch-name-top" id="arch-bride"></h1>
+                <div class="arch-names-divider">
+                  <span class="arch-gold-rule"></span>
+                  <span class="arch-connector" id="arch-connector">&</span>
+                  <span class="arch-gold-rule"></span>
+                </div>
+                <h1 class="arch-couple-name arch-name-bottom" id="arch-groom"></h1>
+              </div>
+              <div class="arch-date-banner">
+                <div class="arch-date-inner">
+                  <span class="arch-date-month" id="arch-month"></span>
+                  <span class="arch-date-day" id="arch-day"></span>
+                  <span class="arch-date-year" id="arch-year"></span>
+                </div>
+                <div class="arch-venue-line" id="arch-venue"></div>
+              </div>
+            </div>
+            <button type="button" class="floral-scroll-cue hidden" id="scroll-cue" aria-label="Scroll down">
+              <span class="scroll-tag-text" id="scroll-tag">SCROLL DOWN</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cue-bounce-icon" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Our story + calendar (RSVP removed) -->
+      <section id="our-story" class="our-story-section hidden-until-unlock">
+        <div class="our-story-card">
+          <div class="our-story-arch-frame">
+            <div class="our-story-swiper-track" id="story-track"></div>
+          </div>
+          <div class="our-story-body">
+            <div class="our-story-heading">
+              <h2 class="our-story-title" id="story-title"></h2>
+              <span class="our-story-script" id="story-script"></span>
+            </div>
+            <p class="our-story-lead" id="story-lead"></p>
+            <div class="our-story-pill-wrapper">
+              <img id="pill-bg" class="pill-botanical-bg" alt="" />
+              <div class="our-story-pill">
+                <span class="our-story-pill-date" id="pill-date"></span>
+              </div>
+            </div>
+            <p class="our-story-closing" id="story-closing"></p>
+            <div class="story-action-buttons story-action-buttons--stack">
+              <a id="btn-maps" class="story-action-btn btn-maps" target="_blank" rel="noopener noreferrer">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-action-icon"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>View on Maps</span>
+              </a>
+              <button type="button" id="btn-share" class="story-action-btn btn-calendar">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-action-icon"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                <span>Share</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <button type="button" id="audio-btn" class="audio-btn" title="Play background music" aria-label="Music"></button>
+      <audio id="bg-audio" loop preload="auto"></audio>
+    </main>
+
+    <script src="wedding-config.js"></script>
+    <script src="floral-arch.js"></script>
+  </body>
+</html>
