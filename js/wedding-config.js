@@ -75,6 +75,14 @@ window.WEDDING_CONFIG = {
     title: "Antima & Saksham — Save the Date",
     text:
       "With love and blessings — save the date for Antima & Saksham on 5 December 2026 at Saryu Mahal, Jagatpura, Jaipur.",
+    ogTitle: "Antima & Saksham — Save the Date",
+    ogDescription:
+      "With love and blessings — save the date for Antima & Saksham on 5 December 2026 at Saryu Mahal, Jagatpura, Jaipur. Tap to open your invitation.",
+    whatsappText:
+      "With love and blessings — save the date for Antima & Saksham on 5 December 2026 at Saryu Mahal, Jagatpura, Jaipur.",
+    sharePhoto: "share-source.jpg",
+    ogImagePath: "/share-source.jpg",
+    ogImageUrl: "",
   },
 
   botanicalPillBg:

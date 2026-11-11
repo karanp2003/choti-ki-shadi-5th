@@ -1,0 +1,25 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "framework": null,
+  "functions": {
+    "api/og-image.js": {
+      "includeFiles": "share-source.jpg"
+    }
+  },
+  "headers": [
+    {
+      "source": "/share-source\\.jpg",
+      "headers": [
+        { "key": "Content-Type", "value": "image/jpeg" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Accept-Ranges", "value": "none" }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [{ "key": "Accept-Ranges", "value": "none" }]
+    }
+  ]
+}

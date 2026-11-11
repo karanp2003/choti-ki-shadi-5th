@@ -40,16 +40,31 @@
   function shareInvite() {
     const shareCfg = cfg.share || {};
     const names = coupleLine();
+    const shareText =
+      shareCfg.whatsappText ||
+      shareCfg.text ||
+      "Save the date! " +
+        names +
+        " are getting married on 5 December 2026 at " +
+        (hero.venue || "Jaipur") +
+        ".";
+
+    const shareUrl = (function () {
+      if (shareCfg.url) return shareCfg.url;
+      try {
+        const u = new URL(window.location.href);
+        u.search = "";
+        u.hash = "";
+        return u.toString();
+      } catch (_) {
+        return window.location.href;
+      }
+    })();
+
     const shareData = {
-      title: shareCfg.title || names + " — Save the Date",
-      text:
-        shareCfg.text ||
-        "Save the date! " +
-          names +
-          " are getting married on 5 December 2026 at " +
-          (hero.venue || "Jaipur") +
-          ".",
-      url: shareCfg.url || window.location.href,
+      title: shareCfg.ogTitle || shareCfg.title || names + " — Save the Date",
+      text: shareText,
+      url: shareUrl,
     };
 
     if (navigator.share) {
@@ -57,15 +72,15 @@
       return;
     }
 
-    const link = shareData.url;
+    const clipboardText = shareText + "\n\n" + shareUrl;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(link).then(function () {
-        alert("Invitation link copied!");
+      navigator.clipboard.writeText(clipboardText).then(function () {
+        alert("Invitation message copied — paste in WhatsApp!");
       });
       return;
     }
 
-    prompt("Copy this link:", link);
+    prompt("Copy this message:", clipboardText);
   }
 
   const archVideo = document.getElementById("floral-arch-video");

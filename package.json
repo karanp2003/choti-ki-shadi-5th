@@ -1,0 +1,8 @@
+{
+  "name": "antima-saksham-save-the-date",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/patch-og-url.js",
+    "start": "node server.js"
+  }
+}
