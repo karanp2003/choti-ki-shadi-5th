@@ -238,6 +238,15 @@
 
   if (tapToOpen) {
     tapToOpen.addEventListener("click", openFromFloralHero);
+    tapToOpen.addEventListener(
+      "touchend",
+      function onTouchOpen(e) {
+        if (heroStarted) return;
+        e.preventDefault();
+        openFromFloralHero();
+      },
+      { passive: false }
+    );
   }
 
   archVideo.addEventListener(
@@ -253,6 +262,10 @@
 
   function updateHeroChrome() {
     if (!heroStage) return;
+    if (!heroUnlocked) {
+      heroStage.classList.remove("hero-past-fold");
+      return;
+    }
     const storyTop = ourStory.getBoundingClientRect().top;
     const fold = storyTop <= window.innerHeight * 0.72;
     if (fold) {

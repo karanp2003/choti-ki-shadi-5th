@@ -65,11 +65,17 @@ body.hero-locked {
   opacity: 1 !important;
 }
 
+#fa-root .floral-stage-video {
+  pointer-events: none;
+  z-index: 1;
+}
+
 #fa-root .tap-to-open-overlay {
   position: absolute !important;
   inset: 0;
-  z-index: 35;
-  overflow: hidden;
+  z-index: 40;
+  touch-action: manipulation;
+  overflow: visible;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -91,6 +97,18 @@ body.hero-locked {
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 520px) {
+  #fa-root .tap-to-open-overlay .tap-to-open-label {
+    bottom: max(5.25rem, calc(env(safe-area-inset-bottom, 0px) + 3.75rem));
+    font-size: clamp(0.72rem, 3.2vw, 0.85rem);
+    padding: 0.65rem 1.35rem;
+    max-width: calc(100% - 2rem);
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 /* After scroll: sticky hero stays but chrome must not float over Our Story */
