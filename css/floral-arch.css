@@ -55,8 +55,52 @@ body {
 }
 
 body.hero-locked {
+  position: fixed;
+  inset: 0;
+  width: 100%;
   overflow: hidden;
+  height: 100%;
   height: 100svh;
+  height: -webkit-fill-available;
+  touch-action: none;
+}
+
+body.hero-locked #our-story.hidden-until-unlock {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.hero-locked .hero-scroll-stage.stage-locked {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 520px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  height: 100svh;
+  height: -webkit-fill-available;
+  z-index: 50;
+  overflow: hidden;
+}
+
+#fa-root #arch-overlay.overlay-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#fa-root #arch-overlay.overlay-hidden * {
+  visibility: hidden !important;
+}
+
+#fa-root #arch-overlay.overlay-visible {
+  visibility: visible !important;
+}
+
+#fa-root #arch-overlay.overlay-visible * {
+  visibility: visible !important;
 }
 
 /* Tap to open on floral hero (no envelope gate) */
@@ -158,7 +202,121 @@ body.hero-locked {
 }
 
 .floral-arch-overlay.overlay-visible {
-  inset: 30% 12% 28% !important;
+  inset: 22% 10% 24% !important;
+}
+
+/* Hero couple logo */
+.arch-logo-wrap {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: clamp(1.65rem, 7vh, 2.65rem);
+  margin-bottom: 0.15rem;
+  padding-top: 0;
+}
+
+.arch-logo-circle {
+  width: clamp(9rem, 38vw, 13.5rem);
+  max-width: min(94%, 260px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-couple-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 3px 8px rgba(44, 24, 24, 0.2));
+}
+
+.overlay-visible .arch-logo-circle {
+  animation: archFadeDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+/* Venue + timing below date pill */
+.our-story-venue-card {
+  text-align: center;
+  width: min(100%, 340px);
+  margin: -0.15rem auto 1.85rem;
+  padding: 1.1rem 1.3rem 1.2rem;
+  background: linear-gradient(165deg, #fdfbf8 0%, #f8f2ea 55%, #f3ebe2 100%);
+  border: 1px solid rgba(197, 160, 89, 0.38);
+  border-radius: 18px;
+  box-shadow:
+    0 12px 32px rgba(45, 30, 15, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  position: relative;
+}
+
+.venue-card-ornament {
+  width: 52px;
+  height: 2px;
+  margin: 0 auto 0.8rem;
+  background: linear-gradient(90deg, transparent, #b8956a, transparent);
+  opacity: 0.9;
+}
+
+.venue-card-name {
+  font-family: Cinzel, "Cormorant Garamond", serif;
+  font-size: clamp(0.98rem, 3vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #54441e;
+  margin: 0 0 0.4rem;
+  line-height: 1.35;
+}
+
+.venue-card-area {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.08rem, 3.15vw, 1.28rem);
+  font-style: italic;
+  font-weight: 500;
+  color: #6b5523;
+  margin: 0 0 0.9rem;
+  line-height: 1.4;
+}
+
+.venue-card-time-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.05rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(168, 99, 61, 0.12), rgba(142, 78, 43, 0.08));
+  border: 1px solid rgba(168, 99, 61, 0.28);
+  box-shadow: 0 4px 12px rgba(142, 78, 43, 0.08);
+}
+
+.venue-card-time {
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(0.76rem, 2.35vw, 0.86rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8e4e2b;
+}
+
+.venue-time-icon {
+  color: #a8633d;
+  flex-shrink: 0;
+  opacity: 0.92;
 }
 
 @keyframes scrollCueCenterIn {

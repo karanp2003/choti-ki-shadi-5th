@@ -32,6 +32,9 @@
     />
     <meta name="twitter:image" content="__OG_IMAGE_URL__" />
 
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/share-source.jpg" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -51,8 +54,10 @@
               id="floral-arch-video"
               class="floral-stage-video"
               playsinline
+              webkit-playsinline
               muted
-              preload="auto"
+              preload="metadata"
+              disablepictureinpicture
             ></video>
             <button
               type="button"
@@ -63,9 +68,18 @@
               <span class="tap-to-open-label" id="tap-to-open-label">TAP TO OPEN</span>
             </button>
             <div class="floral-arch-overlay overlay-hidden" id="arch-overlay">
-              <div class="arch-top-badge">
-                <h3 class="arch-badge-title" id="arch-msg1"></h3>
-                <span class="arch-badge-script" id="arch-msg2"></span>
+              <div class="arch-top-badge arch-logo-wrap">
+                <div class="arch-logo-circle">
+                  <img
+                    id="arch-logo"
+                    class="arch-couple-logo"
+                    src="assets/couple-logo.png"
+                    alt="Antima & Saksham"
+                    width="240"
+                    height="240"
+                    decoding="async"
+                  />
+                </div>
               </div>
               <div class="arch-names-center">
                 <h1 class="arch-couple-name arch-name-top" id="arch-bride"></h1>
@@ -82,7 +96,6 @@
                   <span class="arch-date-day" id="arch-day"></span>
                   <span class="arch-date-year" id="arch-year"></span>
                 </div>
-                <div class="arch-venue-line" id="arch-venue"></div>
               </div>
             </div>
             <button type="button" class="floral-scroll-cue hidden" id="scroll-cue" aria-label="Scroll down">
@@ -113,6 +126,27 @@
                 <span class="our-story-pill-date" id="pill-date"></span>
               </div>
             </div>
+            <article class="our-story-venue-card" id="story-venue-card">
+              <div class="venue-card-ornament" aria-hidden="true"></div>
+              <p class="venue-card-name" id="story-venue-name"></p>
+              <p class="venue-card-area" id="story-venue-area"></p>
+              <div class="venue-card-time-row">
+                <svg
+                  class="venue-time-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+                <span class="venue-card-time" id="story-venue-time"></span>
+              </div>
+            </article>
             <p class="our-story-closing" id="story-closing"></p>
             <div class="story-action-buttons story-action-buttons--stack">
               <a id="btn-maps" class="story-action-btn btn-maps" target="_blank" rel="noopener noreferrer">

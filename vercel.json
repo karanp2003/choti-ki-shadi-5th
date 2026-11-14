@@ -7,6 +7,12 @@
       "includeFiles": "share-source.jpg"
     }
   },
+  "rewrites": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.svg"
+    }
+  ],
   "headers": [
     {
       "source": "/share-source\\.jpg",

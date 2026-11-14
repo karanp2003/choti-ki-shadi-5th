@@ -16,6 +16,7 @@ const MIME_TYPES = {
   '.webp': 'image/webp',
   '.mp4': 'video/mp4',
   '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
   '.mp3': 'audio/mpeg',
   '.txt': 'text/plain; charset=utf-8',
 };
@@ -38,6 +39,7 @@ function safePath(urlPath) {
 const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0] || '/';
   if (reqPath === '/') reqPath = '/index.html';
+  if (reqPath === '/favicon.ico') reqPath = '/favicon.svg';
 
   if (LEGACY_ROOT_FILES[reqPath]) {
     reqPath = LEGACY_ROOT_FILES[reqPath];

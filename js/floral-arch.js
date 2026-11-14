@@ -95,10 +95,6 @@
   const tapLabel = document.getElementById("tap-to-open-label");
 
   const dParts = parseDate(hero.weddingDate);
-  document.getElementById("arch-msg1").textContent =
-    hero.message1 || hero.badgeText || "SAVE THE DATE";
-  document.getElementById("arch-msg2").textContent =
-    hero.message2 || hero.subtitleScript || "";
   document.getElementById("arch-bride").textContent =
     hero.displayOrder === "groom-first" ? hero.groomName : hero.brideName;
   document.getElementById("arch-groom").textContent =
@@ -107,8 +103,23 @@
   document.getElementById("arch-month").textContent = dParts.month;
   document.getElementById("arch-day").textContent = dParts.day;
   document.getElementById("arch-year").textContent = dParts.year;
-  document.getElementById("arch-venue").textContent = hero.venue || "";
   document.getElementById("scroll-tag").textContent = hero.scrollTag || "SCROLL DOWN";
+
+  var venueNameEl = document.getElementById("story-venue-name");
+  var venueAreaEl = document.getElementById("story-venue-area");
+  var venueTimeEl = document.getElementById("story-venue-time");
+  var venueName = hero.venueName || "";
+  var venueArea = hero.venueArea || "";
+  if (!venueName && hero.venue) {
+    var vp = hero.venue.split(",").map(function (s) {
+      return s.trim();
+    });
+    venueName = vp[0] || "";
+    venueArea = vp.slice(1).join(", ");
+  }
+  if (venueNameEl) venueNameEl.textContent = venueName;
+  if (venueAreaEl) venueAreaEl.textContent = venueArea;
+  if (venueTimeEl) venueTimeEl.textContent = hero.eventTime || "1 PM Onwards";
 
   if (tapLabel) {
     const hint = entry.tapHint || hero.tapHint || "Tap to Open";
@@ -139,6 +150,11 @@
         return encodeURIComponent(part);
       })
       .join("/");
+  }
+
+  var archLogo = document.getElementById("arch-logo");
+  if (archLogo && (hero.logo || cfg.coupleLogo)) {
+    archLogo.src = mediaSrc(hero.logo || cfg.coupleLogo);
   }
 
   const slides = (story.slides || []).map(function (s) {
@@ -202,34 +218,58 @@
   }
 
   function unlockLayout() {
-    if (heroUnlocked) return;
+    if (!heroStarted || heroUnlocked) return;
     heroUnlocked = true;
     heroStage.classList.remove("stage-locked");
     heroStage.classList.add("stage-unlocked");
     ourStory.classList.remove("hidden-until-unlock");
     document.body.classList.remove("hero-locked");
     document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.inset = "";
+    document.body.style.width = "";
     document.documentElement.style.overflow = "";
   }
 
   function startArchHero() {
+    if (!archVideo) return;
+    archVideo.setAttribute("playsinline", "");
+    archVideo.setAttribute("webkit-playsinline", "");
+    archVideo.playsInline = true;
     archVideo.muted = true;
-    archVideo.currentTime = 0;
+    try {
+      archVideo.currentTime = 0;
+    } catch (_) {}
+    var revealFallbackMs = 5500;
+    var revealTimer = setTimeout(function () {
+      if (heroStarted) showArchOverlay();
+    }, revealFallbackMs);
     archVideo.play().catch(function () {
+      clearTimeout(revealTimer);
       showArchOverlay();
     });
-    setTimeout(showArchOverlay, 4500);
-    archVideo.addEventListener("timeupdate", function onT() {
-      if (archVideo.duration && archVideo.currentTime >= archVideo.duration - 0.6) {
-        archVideo.removeEventListener("timeupdate", onT);
-        showArchOverlay();
+    archVideo.addEventListener(
+      "timeupdate",
+      function onT() {
+        if (archVideo.duration && archVideo.currentTime >= archVideo.duration - 0.6) {
+          archVideo.removeEventListener("timeupdate", onT);
+          clearTimeout(revealTimer);
+          showArchOverlay();
+        }
       }
-    });
-    archVideo.addEventListener("ended", showArchOverlay, { once: true });
+    );
+    archVideo.addEventListener(
+      "ended",
+      function () {
+        clearTimeout(revealTimer);
+        showArchOverlay();
+      },
+      { once: true }
+    );
   }
 
   function showArchOverlay() {
-    if (archOverlayShown) return;
+    if (!heroStarted || archOverlayShown) return;
     archOverlayShown = true;
     overlay.classList.remove("overlay-hidden");
     overlay.classList.add("overlay-visible");
@@ -253,27 +293,21 @@
 
   if (tapToOpen) {
     tapToOpen.addEventListener("click", openFromFloralHero);
-    tapToOpen.addEventListener(
-      "touchend",
-      function onTouchOpen(e) {
-        if (heroStarted) return;
-        e.preventDefault();
-        openFromFloralHero();
-      },
-      { passive: false }
-    );
   }
 
-  archVideo.addEventListener(
-    "loadeddata",
-    function primeFrame() {
+  if (archVideo) {
+    archVideo.preload = "metadata";
+    function primeClosedFrame() {
       try {
         archVideo.pause();
-        if (archVideo.currentTime === 0) archVideo.currentTime = 0.001;
+        archVideo.currentTime = 0;
       } catch (_) {}
-    },
-    { once: true }
-  );
+    }
+    archVideo.addEventListener("loadedmetadata", primeClosedFrame, { once: true });
+    if (archVideo.readyState >= 1) {
+      primeClosedFrame();
+    }
+  }
 
   function updateHeroChrome() {
     if (!heroStage) return;
@@ -321,4 +355,12 @@
   if (tapToOpen) {
     tapToOpen.setAttribute("aria-hidden", "false");
   }
+
+  window.addEventListener("pageshow", function (ev) {
+    if (ev.persisted && heroStarted) {
+      location.reload();
+    }
+  });
+
+  requestAnimationFrame(updateHeroChrome);
 })();
