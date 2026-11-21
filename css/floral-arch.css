@@ -381,3 +381,30 @@ body.hero-locked .hero-scroll-stage.stage-locked {
   opacity: 0;
   visibility: hidden;
 }
+
+/* Parent names typography */
+.arch-parents-line {
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  font-size: clamp(0.85rem, 2.6vw, 1.08rem) !important;
+  line-height: 1.35 !important;
+  color: var(--bronze-deep, #54441e) !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95) !important;
+  margin: 0.12rem auto 0.22rem !important;
+  padding: 0 0.5rem !important;
+  text-align: center !important;
+}
+
+.overlay-hidden .arch-parents-line {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.overlay-visible .arch-parents-top {
+  animation: archFadeInName 0.95s var(--ease-luxury) 0.8s both !important;
+}
+
+.overlay-visible .arch-parents-bottom {
+  animation: archFadeInName 0.95s var(--ease-luxury) 1.4s both !important;
+}

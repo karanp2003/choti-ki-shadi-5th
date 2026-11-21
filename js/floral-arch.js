@@ -95,11 +95,42 @@
   const tapLabel = document.getElementById("tap-to-open-label");
 
   const dParts = parseDate(hero.weddingDate);
-  document.getElementById("arch-bride").textContent =
-    hero.displayOrder === "groom-first" ? hero.groomName : hero.brideName;
-  document.getElementById("arch-groom").textContent =
-    hero.displayOrder === "groom-first" ? hero.brideName : hero.groomName;
+  const isGroomFirst = hero.displayOrder === "groom-first";
+  const archBrideEl = document.getElementById("arch-bride");
+  const archGroomEl = document.getElementById("arch-groom");
+  const brideParentsEl = document.getElementById("arch-bride-parents");
+  const groomParentsEl = document.getElementById("arch-groom-parents");
+
+  if (archBrideEl) {
+    archBrideEl.textContent = isGroomFirst ? hero.groomName : hero.brideName;
+  }
+  if (archGroomEl) {
+    archGroomEl.textContent = isGroomFirst ? hero.brideName : hero.groomName;
+  }
+
+  const topParents = isGroomFirst ? hero.groomParents : hero.brideParents;
+  const bottomParents = isGroomFirst ? hero.brideParents : hero.groomParents;
+
+  if (brideParentsEl) {
+    if (topParents) {
+      brideParentsEl.textContent = topParents;
+      brideParentsEl.style.display = "";
+    } else {
+      brideParentsEl.style.display = "none";
+    }
+  }
+
+  if (groomParentsEl) {
+    if (bottomParents) {
+      groomParentsEl.textContent = bottomParents;
+      groomParentsEl.style.display = "";
+    } else {
+      groomParentsEl.style.display = "none";
+    }
+  }
+
   document.getElementById("arch-connector").textContent = hero.connector || "&";
+
   document.getElementById("arch-month").textContent = dParts.month;
   document.getElementById("arch-day").textContent = dParts.day;
   document.getElementById("arch-year").textContent = dParts.year;
